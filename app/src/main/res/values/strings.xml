@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Term Tracker</string>
+    <string name="curr_term">Current Term</string>
+    <string name="all_terms">All Terms</string>
 </resources>
