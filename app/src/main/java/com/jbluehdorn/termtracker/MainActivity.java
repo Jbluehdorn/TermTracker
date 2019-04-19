@@ -3,10 +3,13 @@ package com.jbluehdorn.termtracker;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-import com.jbluehdorn.termtracker.terms.TermsActivity;
+
+import com.jbluehdorn.termtracker.storage.tables.TermsTable;
+import com.jbluehdorn.termtracker.terms.Controller;
 
 public class MainActivity extends AppCompatActivity {
     private Button btnCurrTerm, btnAllTerms;
@@ -33,10 +36,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void handleBtnCurrTerm(View v) {
         Toast.makeText(getApplicationContext(), R.string.no_curr_term_err, Toast.LENGTH_SHORT).show();
+
+        TermsTable table = new TermsTable();
+        Log.d("Data", table.getCreateString());
     }
 
     private void handleBtnAllTerms(View v) {
-        Intent intent = new Intent(this, TermsActivity.class);
+        Intent intent = new Intent(this, Controller.class);
         startActivity(intent);
     }
 }

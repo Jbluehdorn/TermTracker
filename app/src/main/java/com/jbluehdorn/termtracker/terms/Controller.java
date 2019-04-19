@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.jbluehdorn.termtracker.R;
 
-public class TermsActivity extends AppCompatActivity {
+public class Controller extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
