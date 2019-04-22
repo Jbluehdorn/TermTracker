@@ -1,10 +1,13 @@
 package com.jbluehdorn.termtracker.storage.tables;
 
+import java.util.ArrayList;
 import java.util.Map;
 
-abstract class Table {
+public abstract class Table {
     protected String name;
-    protected Map<String, DataType> columns;
+    protected ArrayList<Column> columns = new ArrayList<>();
+
+    // What the type of a column will be
     protected enum DataType {
         STRING  ("STRING"),
         DATE    ("DATE"),
@@ -20,22 +23,39 @@ abstract class Table {
         public String toString() {
             return this.type;
         }
-
     }
 
-    public Table() {}
+    // Class to hold type and name of each column
+    protected class Column {
+        private String name;
+        private DataType type;
+
+        Column(String name, DataType type) {
+            this.name = name;
+            this.type = type;
+        }
+
+        public String getName() {return this.name;}
+        public DataType getType() {return this.type;}
+    }
+
+    protected Table() {}
 
     public String getCreateString() {
         StringBuilder sb = new StringBuilder();
 
         sb.append("CREATE TABLE " + this.name + "(");
         sb.append("ID INTEGER PRIMARY KEY,");
-        for(Map.Entry<String, DataType> pair : columns.entrySet()) {
-            sb.append(" " + pair.getKey() + " " + pair.getValue().toString() + ",");
+        for(Column col : columns) {
+            sb.append(" " + col.getName() + " " + col.getType().toString() + ",");
         }
         sb.deleteCharAt(sb.length() - 1); //remove the final comma
         sb.append(")");
 
         return sb.toString();
+    }
+
+    public String getDropString() {
+        return "DROP TABLE IF EXISTS " + this.name;
     }
 }
