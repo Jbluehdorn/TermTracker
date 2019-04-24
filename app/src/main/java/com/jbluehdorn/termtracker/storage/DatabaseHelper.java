@@ -10,27 +10,28 @@ import com.jbluehdorn.termtracker.storage.TableFactory.TableType;
 import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
+    private static DatabaseHelper sInstance;
+
     // DB Info
     private static final String DB_NAME = "termsDatabase";
     private static final int DB_VERSION = 1;
 
-    // Table Names
-    private static final String TABLE_TERMS = "terms";
-    private static final String TABLE_COURSES = "courses";
-    private static final String TABLE_NOTES = "notes";
-    private static final String TABLE_ASSESSMENTS = "assessments";
-    private static final String TABLE_ALERTS = "alerts";
-
     // Tables
     private static final ArrayList<Table> tables = new ArrayList<>();
 
-    public DatabaseHelper(Context context) {
+    public static synchronized DatabaseHelper getInstance(Context context) {
+        if(sInstance == null) {
+            sInstance = new DatabaseHelper(context.getApplicationContext());
+        }
+        return sInstance;
+    }
+
+    private DatabaseHelper(Context context) {
         super(context,DB_NAME, null, DB_VERSION );
 
         //register tables
         tables.add(TableFactory.getTable(TableType.TERMS));
         tables.add(TableFactory.getTable(TableType.COURSES));
-        tables.add(TableFactory.getTable(TableType.NOTES));
     }
 
     @Override

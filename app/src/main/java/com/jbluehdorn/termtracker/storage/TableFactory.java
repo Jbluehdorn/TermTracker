@@ -10,8 +10,7 @@ public class TableFactory {
 
     public enum TableType {
         TERMS,
-        COURSES,
-        NOTES
+        COURSES
     }
 
     public static Table getTable(TableType tbl) {
