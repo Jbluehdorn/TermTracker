@@ -5,5 +5,8 @@ public class AssessmentsTable extends Table {
         super();
 
         this.name = "ASSESSMENTS";
+        this.columns.add(new Column("TYPE", DataType.STRING));
+        this.columns.add(new Column("DUE_DATE", DataType.DATE));
+        this.columns.add(new Column("NOTES", DataType.STRING));
     }
 }
