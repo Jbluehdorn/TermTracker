@@ -1,8 +1,5 @@
 package com.jbluehdorn.termtracker.storage.tables;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class TermsTable extends Table {
     public TermsTable() {
         super();

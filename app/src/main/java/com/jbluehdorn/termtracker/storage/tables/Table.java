@@ -1,7 +1,6 @@
 package com.jbluehdorn.termtracker.storage.tables;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 public abstract class Table {
     protected String name;
@@ -11,7 +10,8 @@ public abstract class Table {
     protected enum DataType {
         STRING  ("STRING"),
         DATE    ("DATE"),
-        INT     ("INTEGER");
+        INT     ("INTEGER"),
+        BOOLEAN ("BOOLEAN");
 
         private String type;
 

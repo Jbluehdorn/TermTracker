@@ -3,10 +3,9 @@ package com.jbluehdorn.termtracker.storage;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.support.annotation.Nullable;
 
 import com.jbluehdorn.termtracker.storage.tables.Table;
-import com.jbluehdorn.termtracker.storage.tables.TermsTable;
+import com.jbluehdorn.termtracker.storage.TableFactory.TableType;
 
 import java.util.ArrayList;
 
@@ -24,13 +23,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Tables
     private static final ArrayList<Table> tables = new ArrayList<>();
-    private static final Table TermTable = new TermsTable();
 
     public DatabaseHelper(Context context) {
         super(context,DB_NAME, null, DB_VERSION );
 
         //register tables
-        tables.add(TermTable);
+        tables.add(TableFactory.getTable(TableType.TERMS));
+        tables.add(TableFactory.getTable(TableType.COURSES));
+        tables.add(TableFactory.getTable(TableType.NOTES));
     }
 
     @Override
