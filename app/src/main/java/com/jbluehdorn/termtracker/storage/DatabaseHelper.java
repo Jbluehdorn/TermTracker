@@ -4,8 +4,10 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.jbluehdorn.termtracker.storage.tables.AssessmentsTable;
+import com.jbluehdorn.termtracker.storage.tables.CoursesTable;
 import com.jbluehdorn.termtracker.storage.tables.Table;
-import com.jbluehdorn.termtracker.storage.TableFactory.TableType;
+import com.jbluehdorn.termtracker.storage.tables.TermsTable;
 
 import java.util.ArrayList;
 
@@ -30,8 +32,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         super(context,DB_NAME, null, DB_VERSION );
 
         //register tables
-        tables.add(TableFactory.getTable(TableType.TERMS));
-        tables.add(TableFactory.getTable(TableType.COURSES));
+        tables.add(TermsTable.getInstance());
+        tables.add(CoursesTable.getInstance());
+        tables.add(AssessmentsTable.getInstance());
     }
 
     @Override

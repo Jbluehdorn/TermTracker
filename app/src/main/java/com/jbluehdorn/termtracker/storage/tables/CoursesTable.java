@@ -1,7 +1,16 @@
 package com.jbluehdorn.termtracker.storage.tables;
 
 public class CoursesTable extends Table {
-    public CoursesTable() {
+    private static CoursesTable sInstance;
+
+    public static synchronized CoursesTable getInstance() {
+        if(sInstance == null) {
+            sInstance = new CoursesTable();
+        }
+        return sInstance;
+    }
+
+    private CoursesTable() {
         super();
 
         this.name = "COURSES";
