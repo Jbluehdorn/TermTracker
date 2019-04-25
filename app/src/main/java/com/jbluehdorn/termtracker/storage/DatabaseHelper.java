@@ -4,12 +4,14 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.jbluehdorn.termtracker.models.Term;
 import com.jbluehdorn.termtracker.storage.tables.AssessmentsTable;
 import com.jbluehdorn.termtracker.storage.tables.CoursesTable;
 import com.jbluehdorn.termtracker.storage.tables.Table;
 import com.jbluehdorn.termtracker.storage.tables.TermsTable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static DatabaseHelper sInstance;
@@ -35,6 +37,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         tables.add(TermsTable.getInstance());
         tables.add(CoursesTable.getInstance());
         tables.add(AssessmentsTable.getInstance());
+    }
+
+    public void AddTerm(Term term) {
+        SQLiteDatabase db = getWritableDatabase();
+        TermsTable tbl = TermsTable.getInstance();
+
+        tbl.Add(term, db);
+    }
+
+    public List<Term> GetTerms() {
+        SQLiteDatabase db = getWritableDatabase();
+        TermsTable tbl = TermsTable.getInstance();
+
+        return (List<Term>)(List<?>) tbl.Get(db);
     }
 
     @Override

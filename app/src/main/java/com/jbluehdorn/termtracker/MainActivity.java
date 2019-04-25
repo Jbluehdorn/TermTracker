@@ -8,8 +8,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.jbluehdorn.termtracker.models.Term;
+import com.jbluehdorn.termtracker.storage.DatabaseHelper;
 import com.jbluehdorn.termtracker.storage.tables.TermsTable;
 import com.jbluehdorn.termtracker.terms.Controller;
+
+import java.time.Instant;
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private Button btnCurrTerm, btnAllTerms;
@@ -37,8 +44,18 @@ public class MainActivity extends AppCompatActivity {
     private void handleBtnCurrTerm(View v) {
         Toast.makeText(getApplicationContext(), R.string.no_curr_term_err, Toast.LENGTH_SHORT).show();
 
-        TermsTable table = new TermsTable();
-        Log.d("Data", table.getCreateString());
+        LocalDate now = LocalDate.now();
+        LocalDate tommorrow = now.plusDays(1);
+
+        Term term = new Term("Fall", now, tommorrow);
+
+        DatabaseHelper dbHelper = DatabaseHelper.getInstance(getApplicationContext());
+        dbHelper.AddTerm(term);
+
+        List<Term> terms = dbHelper.GetTerms();
+        for(Term t : terms) {
+            Log.d("D", t.getTitle());
+        }
     }
 
     private void handleBtnAllTerms(View v) {
