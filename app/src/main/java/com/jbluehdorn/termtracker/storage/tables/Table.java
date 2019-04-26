@@ -65,9 +65,9 @@ public abstract class Table {
         return "DROP TABLE IF EXISTS " + this.name;
     }
 
-    public abstract Model Get(int id, SQLiteDatabase db);
-    public abstract List<Model> Get(SQLiteDatabase db);
-    public abstract void Add(Model model, SQLiteDatabase db);
-    public abstract void Delete(Model model, SQLiteDatabase db);
-    public abstract void AddOrUpdate(Model model, SQLiteDatabase db);
+    public abstract Model get(int id, SQLiteDatabase db);
+    public abstract List<Model> get(SQLiteDatabase db);
+    public abstract void add(Model model, SQLiteDatabase db);
+    public abstract void delete(Model model, SQLiteDatabase db);
+    public abstract int addOrUpdate(Model model, SQLiteDatabase db);
 }

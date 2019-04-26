@@ -47,14 +47,27 @@ public class MainActivity extends AppCompatActivity {
         LocalDate now = LocalDate.now();
         LocalDate tommorrow = now.plusDays(1);
 
-        Term term = new Term("Fall", now, tommorrow);
+        Term term = new Term();
+        term.setEndDate(tommorrow);
+        term.setStartDate(now);
+        term.setTitle("Bananas?");
+        term.setActive(true);
 
-        DatabaseHelper dbHelper = DatabaseHelper.getInstance(getApplicationContext());
-        dbHelper.AddTerm(term);
+        DatabaseHelper db = DatabaseHelper.getInstance(getApplicationContext());
+        db.addOrUpdateTerm(term);
 
-        List<Term> terms = dbHelper.GetTerms();
+        List<Term> terms = db.getTerms();
         for(Term t : terms) {
-            Log.d("D", t.getTitle());
+            Log.d("Info", t.getTitle());
+        }
+
+        term = db.getTerm(1);
+        db.deleteTerm(term);
+
+        Log.d("Info", "Deleting...");
+        terms = db.getTerms();
+        for(Term t : terms) {
+            Log.d("Info", t.getTitle());
         }
     }
 

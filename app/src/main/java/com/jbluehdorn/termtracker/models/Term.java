@@ -6,6 +6,7 @@ public class Term implements Model {
     private int id;
     private String title;
     private LocalDate start, end;
+    boolean active = false;
 
     public Term() {}
 
@@ -40,4 +41,7 @@ public class Term implements Model {
         return this.end;
     }
     public void setEndDate(LocalDate date) { this.end = date; }
+
+    public boolean getActive() { return this.active; }
+    public void setActive(Boolean active) { this.active = active; }
 }

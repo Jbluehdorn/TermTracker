@@ -21,6 +21,7 @@ public class TermsTable extends Table {
     private static final String COL_NAME = "NAME";
     private static final String COL_START = "START_DATE";
     private static final String COL_END = "END_DATE";
+    private static final String COL_ACTIVE = "ACTIVE";
 
     public static synchronized TermsTable getInstance() {
         if(sInstance == null) {
@@ -36,16 +37,29 @@ public class TermsTable extends Table {
         this.columns.add(new Column(COL_NAME, DataType.STRING));
         this.columns.add(new Column(COL_START, DataType.DATE));
         this.columns.add(new Column(COL_END, DataType.DATE));
+        this.columns.add(new Column(COL_ACTIVE, DataType.BOOLEAN));
     }
 
     @Override
-    public Model Get(int id, SQLiteDatabase db) {
+    public Model get(int id, SQLiteDatabase db) {
+        Term term = null;
+        String SELECT_STRING = "SELECT * FROM " + this.name + " WHERE ID=" + id;
+        Cursor cursor = db.rawQuery(SELECT_STRING, null);
 
-        return null;
+        try {
+            if(cursor.moveToFirst()) {
+                term = this.createTermFromCursor(cursor);
+            }
+        } catch(Exception ex) {
+            Log.e(TAG, "ERROR while trying to read term from db");
+        } finally {
+            cursor.close();
+        }
+        return term;
     }
 
     @Override
-    public List<Model> Get(SQLiteDatabase db) {
+    public List<Model> get(SQLiteDatabase db) {
         List<Model> terms = new ArrayList<>();
         String SELECT_STRING = "SELECT * FROM " + this.name;
 
@@ -53,12 +67,7 @@ public class TermsTable extends Table {
         try {
             if(cursor.moveToFirst()) {
                 do {
-                    Term term = new Term();
-
-                    term.setID(cursor.getInt(cursor.getColumnIndex("ID")));
-                    term.setTitle(cursor.getString(cursor.getColumnIndex(COL_NAME)));
-                    term.setStartDate(LocalDate.parse(cursor.getString(cursor.getColumnIndex(COL_START))));
-                    term.setEndDate(LocalDate.parse(cursor.getString(cursor.getColumnIndex(COL_END))));
+                    Term term = this.createTermFromCursor(cursor);
 
                     terms.add(term);
 
@@ -66,7 +75,7 @@ public class TermsTable extends Table {
             }
 
         } catch (Exception ex) {
-            Log.d(TAG, "ERROR while trying to read all posts from db");
+            Log.d(TAG, "ERROR while trying to read all terms from db");
         } finally {
             if(cursor != null && !cursor.isClosed()) {
                 cursor.close();
@@ -77,7 +86,7 @@ public class TermsTable extends Table {
     }
 
     @Override
-    public void Add(Model model, SQLiteDatabase db) {
+    public void add(Model model, SQLiteDatabase db) {
         Term term = (Term) model;
 
         db.beginTransaction();
@@ -86,6 +95,7 @@ public class TermsTable extends Table {
             values.put(COL_NAME, term.getTitle());
             values.put(COL_START, term.getStartDate().toString());
             values.put(COL_END, term.getEndDate().toString());
+            values.put(COL_ACTIVE, term.getActive());
 
             db.insertOrThrow(this.name, null, values);
             db.setTransactionSuccessful();
@@ -99,12 +109,47 @@ public class TermsTable extends Table {
     }
 
     @Override
-    public void Delete(Model model, SQLiteDatabase db) {
-        Term term = (Term) model;
+    public void delete(Model model, SQLiteDatabase db) {
+        Term term = (Term) this.get(((Term) model).getId(), db);
+
+        db.beginTransaction();
+        try {
+            db.delete(this.name, "ID = ?", new String[]  { String.valueOf(term.getId()) });
+            db.setTransactionSuccessful();
+        } catch(Exception ex) {
+            Log.e(TAG, ex.getMessage());
+        } finally {
+            db.endTransaction();
+        }
     }
 
     @Override
-    public void AddOrUpdate(Model model, SQLiteDatabase db) {
+    public int addOrUpdate(Model model, SQLiteDatabase db) {
+        Term term = (Term) model;
 
+        if(this.get(term.getId(), db) == null) {
+            this.add(term, db);
+            return 1;
+        }
+
+        ContentValues values = new ContentValues();
+        values.put(COL_NAME, term.getTitle());
+        values.put(COL_START, term.getStartDate().toString());
+        values.put(COL_END, term.getEndDate().toString());
+        values.put(COL_ACTIVE, term.getActive());
+
+        return db.update(this.name, values, "ID = ?", new String[] { String.valueOf(term.getId()) });
+    }
+
+    private Term createTermFromCursor(Cursor cursor) {
+        Term term = new Term();
+
+        term.setID(cursor.getInt(cursor.getColumnIndex("ID")));
+        term.setTitle(cursor.getString(cursor.getColumnIndex(COL_NAME)));
+        term.setStartDate(LocalDate.parse(cursor.getString(cursor.getColumnIndex(COL_START))));
+        term.setEndDate(LocalDate.parse(cursor.getString(cursor.getColumnIndex(COL_END))));
+        term.setActive(cursor.getInt(cursor.getColumnIndex(COL_ACTIVE)) > 0);
+
+        return term;
     }
 }

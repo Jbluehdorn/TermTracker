@@ -39,18 +39,39 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         tables.add(AssessmentsTable.getInstance());
     }
 
-    public void AddTerm(Term term) {
+    public void addTerm(Term term) {
         SQLiteDatabase db = getWritableDatabase();
         TermsTable tbl = TermsTable.getInstance();
 
-        tbl.Add(term, db);
+        tbl.add(term, db);
     }
 
-    public List<Term> GetTerms() {
+    public List<Term> getTerms() {
+        SQLiteDatabase db = getReadableDatabase();
+        TermsTable tbl = TermsTable.getInstance();
+
+        return (List<Term>)(List<?>) tbl.get(db);
+    }
+
+    public Term getTerm(int id) {
+        SQLiteDatabase db = getReadableDatabase();
+        TermsTable tbl = TermsTable.getInstance();
+
+        return (Term) tbl.get(id, db);
+    }
+
+    public Boolean addOrUpdateTerm(Term term) {
         SQLiteDatabase db = getWritableDatabase();
         TermsTable tbl = TermsTable.getInstance();
 
-        return (List<Term>)(List<?>) tbl.Get(db);
+        return tbl.addOrUpdate(term, db) == 1;
+    }
+
+    public void deleteTerm(Term term) {
+        SQLiteDatabase db = getWritableDatabase();
+        TermsTable tbl = TermsTable.getInstance();
+
+        tbl.delete(term, db);
     }
 
     @Override

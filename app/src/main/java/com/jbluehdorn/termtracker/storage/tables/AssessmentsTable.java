@@ -26,27 +26,28 @@ public class AssessmentsTable extends Table {
     }
 
     @Override
-    public Model Get(int id, SQLiteDatabase db) {
+    public Model get(int id, SQLiteDatabase db) {
         return null;
     }
 
     @Override
-    public List<Model> Get(SQLiteDatabase db) {
+    public List<Model> get(SQLiteDatabase db) {
         return null;
     }
 
     @Override
-    public void Add(Model model, SQLiteDatabase db) {
+    public void add(Model model, SQLiteDatabase db) {
 
     }
 
     @Override
-    public void Delete(Model model, SQLiteDatabase db) {
+    public void delete(Model model, SQLiteDatabase db) {
 
     }
 
     @Override
-    public void AddOrUpdate(Model model, SQLiteDatabase db) {
-
+    public int addOrUpdate(Model model, SQLiteDatabase db) {
+        return 0;
     }
+
 }
