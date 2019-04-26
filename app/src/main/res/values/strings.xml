@@ -3,4 +3,10 @@
     <string name="curr_term">Current Term</string>
     <string name="all_terms">All Terms</string>
     <string name="no_curr_term_err">No Current Term Available</string>
+
+    <string name="tbl_row_id">ID</string>
+    <string name="tbl_row_title">Title</string>
+    <string name="tbl_row_start">Start Date</string>
+    <string name="tbl_row_end">End Date</string>
+    <string name="tbl_row_active">Current</string>
 </resources>

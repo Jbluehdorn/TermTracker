@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".terms.Controller"></activity>
+        <activity android:name=".terms.AllTermsActivity"></activity>
+
     </application>
 
 </manifest>

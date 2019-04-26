@@ -39,6 +39,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         tables.add(AssessmentsTable.getInstance());
     }
 
+    /*
+        TERMS METHODS
+     */
     public void addTerm(Term term) {
         SQLiteDatabase db = getWritableDatabase();
         TermsTable tbl = TermsTable.getInstance();
