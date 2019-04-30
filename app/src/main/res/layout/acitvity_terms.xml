@@ -32,23 +32,21 @@
                 android:textStyle="bold"
                 android:textSize="24sp" />
 
-            <TableLayout
-                android:id="@+id/tbl_terms"
-                android:layout_height="match_parent"
+            <LinearLayout
+                android:id="@+id/terms_list"
                 android:layout_width="match_parent"
-                android:paddingTop="10dp"
-                android:stretchColumns="*">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="5dp">
 
-                <TableRow>
-                    <TextView android:text="@string/tbl_row_id" android:textSize="16sp"/>
-                    <TextView android:text="@string/tbl_row_title" android:textSize="16sp"/>
-                    <TextView android:text="@string/tbl_row_start" android:textSize="16sp"/>
-                    <TextView android:text="@string/tbl_row_end" android:textSize="16sp"/>
-                    <TextView android:text="@string/tbl_row_active" android:textSize="16sp"/>
-                </TableRow>
-
-
-            </TableLayout>
+                <Button
+                    android:id="@+id/btn_new_term"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
+                    android:textColor="@color/colorWhite"
+                    android:text="@string/add_new"/>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

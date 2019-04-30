@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.jbluehdorn.termtracker.widgets.DateText xmlns:android="http://schemas.android.com/apk/res/android"
+    class="com.jbluehdorn.termtracker.widgets.DateText"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"/>

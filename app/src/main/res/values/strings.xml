@@ -4,9 +4,12 @@
     <string name="all_terms">All Terms</string>
     <string name="no_curr_term_err">No Current Term Available</string>
 
-    <string name="tbl_row_id">ID</string>
-    <string name="tbl_row_title">Title</string>
-    <string name="tbl_row_start">Start Date</string>
-    <string name="tbl_row_end">End Date</string>
-    <string name="tbl_row_active">Current</string>
+    <string name="txt_title">Title</string>
+    <string name="txt_start">Start Date</string>
+    <string name="txt_end">End Date</string>
+    <string name="txt_active">Current</string>
+
+    <string name="add_new">Add New</string>
+
+    <string name="date_format">MM/DD/YYYY</string>
 </resources>
