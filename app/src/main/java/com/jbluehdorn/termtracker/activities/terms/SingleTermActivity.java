@@ -2,6 +2,8 @@ package com.jbluehdorn.termtracker.activities.terms;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -62,10 +64,28 @@ public class SingleTermActivity extends AppCompatActivity {
             termId = getIntent().getIntExtra("TERM_ID", 0);
             term = DatabaseHelper.getInstance(this).getTerm(termId);
 
-            btnDelete = findViewById(R.id.btn_delete);
-            btnDelete.setVisibility(View.VISIBLE);
-
             populateForm();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if(type == Type.EDIT)
+            getMenuInflater().inflate(R.menu.single_term_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.item_assessments:
+                return true;
+            case R.id.item_delete:
+                delete();
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -83,6 +103,12 @@ public class SingleTermActivity extends AppCompatActivity {
         this.term.setActive(chkActive.isChecked());
 
         db.addOrUpdateTerm(this.term);
+    }
+
+    private void delete() {
+        DatabaseHelper db = DatabaseHelper.getInstance(this);
+
+        db.deleteTerm(this.term);
     }
 
     private void populateForm() {
