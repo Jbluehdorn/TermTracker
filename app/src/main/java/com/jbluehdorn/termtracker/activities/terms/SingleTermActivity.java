@@ -12,12 +12,16 @@ import com.jbluehdorn.termtracker.models.Term;
 import com.jbluehdorn.termtracker.storage.DatabaseHelper;
 import com.jbluehdorn.termtracker.widgets.DateText;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class SingleTermActivity extends AppCompatActivity {
     public enum Type {
         EDIT,
         NEW
     }
 
+    private Type type;
     private int termId;
     private Term term;
     private EditText txtTitle;
@@ -36,6 +40,13 @@ public class SingleTermActivity extends AppCompatActivity {
         chkActive   = findViewById(R.id.chk_active);
 
         btnSave     = findViewById(R.id.btn_save);
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                save();
+                finish();
+            }
+        });
 
         btnCancel   = findViewById(R.id.btn_cancel);
         btnCancel.setOnClickListener(new View.OnClickListener() {
@@ -45,7 +56,9 @@ public class SingleTermActivity extends AppCompatActivity {
             }
         });
 
-        if(getIntent().getSerializableExtra("TYPE") == Type.EDIT) {
+        type = (Type) getIntent().getSerializableExtra("TYPE");
+
+        if(type == Type.EDIT) {
             termId = getIntent().getIntExtra("TERM_ID", 0);
             term = DatabaseHelper.getInstance(this).getTerm(termId);
 
@@ -54,8 +67,22 @@ public class SingleTermActivity extends AppCompatActivity {
 
             populateForm();
         }
+    }
 
+    private void save() {
+        DatabaseHelper db = DatabaseHelper.getInstance(this);
 
+        if(this.type == Type.NEW)
+            this.term = new Term();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+
+        this.term.setTitle(txtTitle.getText().toString());
+        this.term.setStartDate(LocalDate.parse(txtStart.getText().toString(), formatter));
+        this.term.setEndDate(LocalDate.parse(txtEnd.getText().toString(), formatter));
+        this.term.setActive(chkActive.isChecked());
+
+        db.addOrUpdateTerm(this.term);
     }
 
     private void populateForm() {
