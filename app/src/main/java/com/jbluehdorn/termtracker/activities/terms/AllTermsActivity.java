@@ -1,4 +1,4 @@
-package com.jbluehdorn.termtracker.terms;
+package com.jbluehdorn.termtracker.activities.terms;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -43,19 +43,34 @@ public class AllTermsActivity extends AppCompatActivity {
         DatabaseHelper db = DatabaseHelper.getInstance(getApplicationContext());
         terms = db.getTerms();
 
-        for(Term term : terms) {
+        for(int i = 0, len = terms.size(); i < len; i++) {
+            final Term term = terms.get(i);
             Button btn = new Button(this);
             btn.setText(term.getTitle());
             btn.setBackgroundResource(R.color.colorPrimaryDark);
             btn.setTextColor(getResources().getColor(R.color.colorWhite));
             btn.setLayoutParams(layoutParams);
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    handleBtnEditTerm(view, term.getId());
+                }
+            });
 
             listTerms.addView(btn, 0);
         }
     }
 
+    private void handleBtnEditTerm(View view, int id) {
+        Intent intent = new Intent(this, SingleTermActivity.class);
+        intent.putExtra("TYPE", SingleTermActivity.Type.EDIT);
+        intent.putExtra("TERM_ID", id);
+        startActivity(intent);
+    }
+
     private void handleBtnNewTerm(View view) {
-        Intent intent = new Intent(this, NewTermActivity.class);
+        Intent intent = new Intent(this, SingleTermActivity.class);
+        intent.putExtra("TYPE", SingleTermActivity.Type.NEW);
         startActivity(intent);
     }
 }

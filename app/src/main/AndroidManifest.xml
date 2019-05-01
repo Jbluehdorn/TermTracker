@@ -17,8 +17,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".terms.AllTermsActivity" />
-        <activity android:name=".terms.NewTermActivity" />
+        <activity android:name=".activities.terms.AllTermsActivity" />
+        <activity android:name=".activities.terms.SingleTermActivity" />
     </application>
 
 </manifest>
