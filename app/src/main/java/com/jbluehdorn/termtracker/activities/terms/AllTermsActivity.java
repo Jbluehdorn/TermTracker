@@ -1,6 +1,7 @@
 package com.jbluehdorn.termtracker.activities.terms;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -26,6 +27,12 @@ public class AllTermsActivity extends AppCompatActivity {
         setContentView(R.layout.acitvity_terms);
 
         listTerms = findViewById(R.id.terms_list);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
         this.populateTable();
 
         Button btnNewTerm = findViewById(R.id.btn_new_term);
@@ -37,6 +44,7 @@ public class AllTermsActivity extends AppCompatActivity {
     }
 
     private void populateTable() {
+        listTerms.removeAllViews();
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         layoutParams.setMargins(0, 0, 0, 10);
 
@@ -48,7 +56,7 @@ public class AllTermsActivity extends AppCompatActivity {
             Button btn = new Button(this);
             btn.setText(term.getTitle());
             btn.setBackgroundResource(R.color.colorPrimaryDark);
-            btn.setTextColor(getResources().getColor(R.color.colorWhite));
+            btn.setTextColor(Color.WHITE);
             btn.setLayoutParams(layoutParams);
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
