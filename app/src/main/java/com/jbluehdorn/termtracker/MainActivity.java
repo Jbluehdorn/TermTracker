@@ -3,13 +3,17 @@ package com.jbluehdorn.termtracker;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.jbluehdorn.termtracker.activities.terms.AllTermsActivity;
+import com.jbluehdorn.termtracker.activities.terms.SingleTermActivity;
+import com.jbluehdorn.termtracker.models.Term;
+import com.jbluehdorn.termtracker.storage.DatabaseHelper;
 
-import java.time.LocalDate;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private Button btnCurrTerm, btnAllTerms;
@@ -35,10 +39,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void handleBtnCurrTerm(View v) {
-        Toast.makeText(getApplicationContext(), R.string.no_curr_term_err, Toast.LENGTH_SHORT).show();
+        DatabaseHelper db = DatabaseHelper.getInstance(this);
+        List<Term> allTerms = db.getTerms();
 
-        LocalDate now = LocalDate.now();
-        LocalDate tommorrow = now.plusDays(1);
+        for(Term t : allTerms) {
+            if(t.getActive()) {
+                Intent intent = new Intent(this, SingleTermActivity.class);
+                intent.putExtra("TYPE", SingleTermActivity.Type.EDIT);
+                intent.putExtra("TERM_ID", t.getId());
+                startActivity(intent);
+            }
+        }
+        Toast.makeText(getApplicationContext(), R.string.no_curr_term_err, Toast.LENGTH_SHORT).show();
     }
 
     private void handleBtnAllTerms(View v) {
