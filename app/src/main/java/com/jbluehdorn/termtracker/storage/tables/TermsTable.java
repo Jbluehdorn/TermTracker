@@ -97,6 +97,9 @@ public class TermsTable extends Table {
             values.put(COL_END, term.getEndDate().toString());
             values.put(COL_ACTIVE, term.getActive());
 
+            if(term.getActive())
+                setAllTemsInactive(db);
+
             db.insertOrThrow(this.name, null, values);
             db.setTransactionSuccessful();
 
@@ -138,6 +141,10 @@ public class TermsTable extends Table {
         values.put(COL_END, term.getEndDate().toString());
         values.put(COL_ACTIVE, term.getActive());
 
+        //Ensures that only this term will be active
+        if(term.getActive())
+            setAllTemsInactive(db);
+
         return db.update(this.name, values, "ID = ?", new String[] { String.valueOf(term.getId()) });
     }
 
@@ -151,5 +158,12 @@ public class TermsTable extends Table {
         term.setActive(cursor.getInt(cursor.getColumnIndex(COL_ACTIVE)) > 0);
 
         return term;
+    }
+
+    private int setAllTemsInactive(SQLiteDatabase db) {
+        ContentValues values = new ContentValues();
+        values.put(COL_ACTIVE, false);
+
+        return db.update(this.name, values, null,null);
     }
 }

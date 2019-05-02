@@ -12,6 +12,8 @@
     <string name="add_new">Add New</string>
 
     <string name="assessments">Assessments</string>
+    <string name="update_term">Update Term</string>
+    <string name="new_term">New Term</string>
 
     <string name="date_format">MM/DD/YYYY</string>
     <string name="save">Save</string>

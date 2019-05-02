@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.jbluehdorn.termtracker.R;
 import com.jbluehdorn.termtracker.models.Term;
@@ -29,12 +30,16 @@ public class SingleTermActivity extends AppCompatActivity {
     private EditText txtTitle;
     private DateText txtStart, txtEnd;
     private Switch chkActive;
-    private Button btnSave, btnCancel, btnDelete;
+    private Button btnSave, btnCancel;
+    private TextView txtHeader;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_term_form);
+
+        txtHeader   = findViewById(R.id.txt_header);
+        txtHeader.setText(R.string.new_term);
 
         txtTitle    = findViewById(R.id.txt_title);
         txtStart    = findViewById(R.id.date_start);
@@ -61,9 +66,14 @@ public class SingleTermActivity extends AppCompatActivity {
         type = (Type) getIntent().getSerializableExtra("TYPE");
 
         if(type == Type.EDIT) {
+            //Set the term
             termId = getIntent().getIntExtra("TERM_ID", 0);
             term = DatabaseHelper.getInstance(this).getTerm(termId);
 
+            //Update the header
+            txtHeader.setText(R.string.update_term);
+
+            //Populate the form fields
             populateForm();
         }
     }
