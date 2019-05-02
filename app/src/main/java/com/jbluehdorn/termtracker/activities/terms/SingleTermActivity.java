@@ -88,7 +88,7 @@ public class SingleTermActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
-            case R.id.item_assessments:
+            case R.id.item_courses:
                 return true;
             case R.id.item_delete:
                 delete();
