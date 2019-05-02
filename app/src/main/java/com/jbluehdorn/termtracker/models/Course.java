@@ -5,9 +5,18 @@ import java.time.LocalDate;
 public class Course implements Model {
     private int id, term_id;
     private LocalDate start_date, end_date;
-    private String status, notes, mentor_name, mentor_phone, mentor_email;
+
+    private String title, status, notes, mentor_name, mentor_phone, mentor_email;
 
     public Course() {}
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public int getId() {
         return id;

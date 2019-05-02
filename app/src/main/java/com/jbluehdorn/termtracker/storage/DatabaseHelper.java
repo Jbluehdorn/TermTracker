@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.jbluehdorn.termtracker.models.Course;
 import com.jbluehdorn.termtracker.models.Term;
 import com.jbluehdorn.termtracker.storage.tables.AssessmentsTable;
 import com.jbluehdorn.termtracker.storage.tables.CoursesTable;
@@ -75,6 +76,45 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         TermsTable tbl = TermsTable.getInstance();
 
         tbl.delete(term, db);
+    }
+
+    /*
+        COURSE METHODS
+     */
+
+    public void addCourse(Course course) {
+        SQLiteDatabase db = getWritableDatabase();
+        CoursesTable tbl = CoursesTable.getInstance();
+
+        tbl.add(course, db);
+    }
+
+    public List<Course> getCourses() {
+        SQLiteDatabase db = getReadableDatabase();
+        CoursesTable tbl = CoursesTable.getInstance();
+
+        return (List<Course>)(List<?>) tbl.get(db);
+    }
+
+    public Course getCourse(int id) {
+        SQLiteDatabase db = getReadableDatabase();
+        CoursesTable tbl = CoursesTable.getInstance();
+
+        return (Course) tbl.get(id, db);
+    }
+
+    public Boolean addOrUpdateCourse(Course course) {
+        SQLiteDatabase db = getWritableDatabase();
+        CoursesTable tbl = CoursesTable.getInstance();
+
+        return tbl.addOrUpdate(course, db) == 1;
+    }
+
+    public void deleteCourse(Course course) {
+        SQLiteDatabase db = getWritableDatabase();
+        CoursesTable tbl = CoursesTable.getInstance();
+
+        tbl.delete(course, db);
     }
 
     @Override

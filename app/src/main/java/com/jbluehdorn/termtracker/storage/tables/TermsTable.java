@@ -151,7 +151,7 @@ public class TermsTable extends Table {
     private Term createTermFromCursor(Cursor cursor) {
         Term term = new Term();
 
-        term.setID(cursor.getInt(cursor.getColumnIndex("ID")));
+        term.setID(cursor.getInt(cursor.getColumnIndex(COL_ID)));
         term.setTitle(cursor.getString(cursor.getColumnIndex(COL_NAME)));
         term.setStartDate(LocalDate.parse(cursor.getString(cursor.getColumnIndex(COL_START))));
         term.setEndDate(LocalDate.parse(cursor.getString(cursor.getColumnIndex(COL_END))));
