@@ -19,6 +19,7 @@
         </activity>
         <activity android:name=".activities.terms.AllTermsActivity" />
         <activity android:name=".activities.terms.SingleTermActivity" />
+        <activity android:name=".activities.courses.AllCoursesActivity" />
     </application>
 
 </manifest>

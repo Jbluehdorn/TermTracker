@@ -1,5 +1,6 @@
 package com.jbluehdorn.termtracker.activities.terms;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -11,6 +12,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.jbluehdorn.termtracker.R;
+import com.jbluehdorn.termtracker.activities.courses.AllCoursesActivity;
 import com.jbluehdorn.termtracker.models.Term;
 import com.jbluehdorn.termtracker.storage.DatabaseHelper;
 import com.jbluehdorn.termtracker.widgets.DateText;
@@ -89,6 +91,7 @@ public class SingleTermActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.item_courses:
+                openCourses();
                 return true;
             case R.id.item_delete:
                 delete();
@@ -97,6 +100,12 @@ public class SingleTermActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void openCourses() {
+        Intent intent = new Intent(this, AllCoursesActivity.class);
+        intent.putExtra("TERM_ID", this.term.getId());
+        startActivity(intent);
     }
 
     private void save() {
