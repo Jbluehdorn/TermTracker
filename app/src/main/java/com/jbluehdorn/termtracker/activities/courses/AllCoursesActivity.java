@@ -1,5 +1,6 @@
 package com.jbluehdorn.termtracker.activities.courses;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,7 @@ import java.util.List;
 public class AllCoursesActivity extends AppCompatActivity {
     private TextView txtHeader;
     private LinearLayout listCourses;
+    private Button btnNew;
 
     private List<Course> courses = new ArrayList<>();
     private Term term;
@@ -31,6 +33,13 @@ public class AllCoursesActivity extends AppCompatActivity {
 
         txtHeader   = findViewById(R.id.txt_header);
         listCourses = findViewById(R.id.list_courses);
+        btnNew      = findViewById(R.id.btn_new_course);
+        btnNew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                handleBtnNewTerm(view);
+            }
+        });
 
         if(loadTerm()) {
             txtHeader.setText(term.getTitle());
@@ -85,5 +94,10 @@ public class AllCoursesActivity extends AppCompatActivity {
 
             listCourses.addView(btn);
         }
+    }
+
+    public void handleBtnNewTerm(View v) {
+        Intent intent = new Intent(this, SingleCourseActivity.class);
+        startActivity(intent);
     }
 }

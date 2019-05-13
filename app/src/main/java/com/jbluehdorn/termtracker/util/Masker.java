@@ -20,4 +20,27 @@ public class Masker {
 
         return sb.toString();
     }
+
+    public static String maskPhone(String input) {
+        StringBuilder sb = new StringBuilder();
+        String slice = input.length() > 10 ? input.substring(0, 10) : input;
+
+        for(int i = slice.length() - 1, counter = 0; i >= 0; i--, counter++) {
+            sb.append(slice.charAt(i));
+
+            if(counter == 3 && i != 0) {
+                sb.append('-');
+            }
+
+            if(counter == 6 && i != 0) {
+                sb.append(')');
+            }
+
+            if(counter == 9) {
+                sb.append('(');
+            }
+        }
+
+        return sb.reverse().toString();
+    }
 }
