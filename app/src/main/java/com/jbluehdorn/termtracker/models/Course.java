@@ -1,10 +1,12 @@
 package com.jbluehdorn.termtracker.models;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Course implements Model {
     private int id, term_id;
     private LocalDate start_date, end_date;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
     private String title, status, notes, mentor_name, mentor_phone, mentor_email;
 
@@ -37,6 +39,7 @@ public class Course implements Model {
     public LocalDate getStartDate() {
         return start_date;
     }
+    public String getStartDateString() { return this.start_date.format(formatter); }
 
     public void setStartDate(LocalDate start_date) {
         this.start_date = start_date;
@@ -49,6 +52,7 @@ public class Course implements Model {
     public void setEndDate(LocalDate end_date) {
         this.end_date = end_date;
     }
+    public String getEndDateString() { return this.end_date.format(formatter); }
 
     public String getStatus() {
         return status;

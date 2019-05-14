@@ -37,9 +37,14 @@ public class AllCoursesActivity extends AppCompatActivity {
         btnNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                handleBtnNewTerm(view);
+                handleBtnNewCourse(view);
             }
         });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
 
         if(loadTerm()) {
             txtHeader.setText(term.getTitle());
@@ -59,6 +64,7 @@ public class AllCoursesActivity extends AppCompatActivity {
 
     //Load the courses into local memory
     private void loadCourses() {
+        this.courses = new ArrayList<>();
         DatabaseHelper db = DatabaseHelper.getInstance(this);
 
         //Get all courses
@@ -76,10 +82,11 @@ public class AllCoursesActivity extends AppCompatActivity {
 
     //Populate the linear layout with all courses
     private void populateList() {
+        listCourses.removeAllViews();
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         params.setMargins(0, 0, 0, 10);
 
-        for(Course course : this.courses) {
+        for(final Course course : this.courses) {
             Button btn = new Button(this);
             btn.setText(course.getTitle());
             btn.setBackgroundResource(R.color.colorPrimaryDark);
@@ -88,7 +95,7 @@ public class AllCoursesActivity extends AppCompatActivity {
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    handleBtnEditCourse(view, course.getId());
                 }
             });
 
@@ -96,8 +103,18 @@ public class AllCoursesActivity extends AppCompatActivity {
         }
     }
 
-    public void handleBtnNewTerm(View v) {
+    public void handleBtnEditCourse(View v, int id) {
         Intent intent = new Intent(this, SingleCourseActivity.class);
+        intent.putExtra("TYPE", SingleCourseActivity.Type.EDIT);
+        intent.putExtra("TERM_ID", term.getId());
+        intent.putExtra("COURSE_ID", id);
+        startActivity(intent);
+    }
+
+    public void handleBtnNewCourse(View v) {
+        Intent intent = new Intent(this, SingleCourseActivity.class);
+        intent.putExtra("TYPE", SingleCourseActivity.Type.NEW);
+        intent.putExtra("TERM_ID", term.getId());
         startActivity(intent);
     }
 }
