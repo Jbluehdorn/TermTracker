@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("TYPE", SingleTermActivity.Type.EDIT);
                 intent.putExtra("TERM_ID", t.getId());
                 startActivity(intent);
+                return;
             }
         }
         Toast.makeText(getApplicationContext(), R.string.no_curr_term_err, Toast.LENGTH_SHORT).show();

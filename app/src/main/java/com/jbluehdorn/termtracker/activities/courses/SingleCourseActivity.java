@@ -28,7 +28,7 @@ public class SingleCourseActivity extends AppCompatActivity {
     }
 
     private TextView txtHeader;
-    private EditText txtTitle, txtMentorName, txtMentorEmail;
+    private EditText txtTitle, txtMentorName, txtMentorEmail, txtNotes;
     private DateText txtStart, txtEnd;
     private Spinner spinStatus;
     private PhoneText txtMentorPhone;
@@ -52,6 +52,7 @@ public class SingleCourseActivity extends AppCompatActivity {
         txtTitle        = findViewById(R.id.txt_title);
         txtMentorName   = findViewById(R.id.txt_mentor_name);
         txtMentorEmail  = findViewById(R.id.txt_mentor_email);
+        txtNotes        = findViewById(R.id.txt_notes);
         txtStart        = findViewById(R.id.date_start);
         txtEnd          = findViewById(R.id.date_end);
         spinStatus      = findViewById(R.id.spin_status);
@@ -121,6 +122,7 @@ public class SingleCourseActivity extends AppCompatActivity {
         course.setStartDate(LocalDate.parse(txtStart.getText().toString(), formatter));
         course.setEndDate(LocalDate.parse(txtEnd.getText().toString(), formatter));
         course.setStatus(spinStatus.getSelectedItem().toString());
+        course.setNotes(txtNotes.getText().toString());
         course.setMentorName(txtMentorName.getText().toString());
         course.setMentorEmail(txtMentorEmail.getText().toString());
         course.setMentorPhone(txtMentorPhone.getText().toString());
@@ -139,6 +141,7 @@ public class SingleCourseActivity extends AppCompatActivity {
         txtTitle.setText(course.getTitle());
         txtStart.setText(course.getStartDateString());
         txtEnd.setText(course.getEndDateString());
+        txtNotes.setText(course.getNotes());
         txtMentorName.setText(course.getMentorName());
         txtMentorEmail.setText(course.getMentorEmail());
         txtMentorPhone.setText(course.getMentorPhone());
