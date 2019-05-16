@@ -2,33 +2,37 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingHorizontal="5dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/txt_header"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="24sp"/>
-
+        android:layout_height="match_parent">
         <LinearLayout
-            android:id="@+id/list_courses"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingHorizontal="5dp"
             android:orientation="vertical">
-            <!--Programatically generated-->
-        </LinearLayout>
 
-        <Button
-            android:id="@+id/btn_new_course"
-            android:text="@string/add_new"
-            android:background="@color/colorPrimary"
-            android:textColor="@android:color/white"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
+            <TextView
+                android:id="@+id/txt_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="24sp"/>
+
+            <LinearLayout
+                android:id="@+id/list_courses"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <!--Programatically generated-->
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_new_course"
+                android:text="@string/add_new"
+                android:background="@color/colorPrimary"
+                android:textColor="@android:color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </ScrollView>
 </android.support.constraint.ConstraintLayout>
