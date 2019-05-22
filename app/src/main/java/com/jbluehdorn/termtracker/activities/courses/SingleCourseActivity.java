@@ -1,5 +1,6 @@
 package com.jbluehdorn.termtracker.activities.courses;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -109,6 +110,9 @@ public class SingleCourseActivity extends AppCompatActivity {
                 delete();
                 finish();
                 return true;
+            case R.id.item_share:
+                share();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -146,6 +150,16 @@ public class SingleCourseActivity extends AppCompatActivity {
         DatabaseHelper db = DatabaseHelper.getInstance(this);
 
         db.deleteCourse(this.course);
+    }
+
+    private void share() {
+        String info = course.getTitle() + " notes:\n" + course.getNotes();
+
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, info);
+        sendIntent.setType("text/plain");
+        startActivity(sendIntent);
     }
 
     private void populateForm() {

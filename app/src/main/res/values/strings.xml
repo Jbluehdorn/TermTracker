@@ -23,6 +23,7 @@
     <string name="date_format">MM/DD/YYYY</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
+    <string name="share">Share</string>
     <string name="delete">Delete</string>
 
     <string-array name="course_statuses">
