@@ -20,11 +20,24 @@ public class Assessment implements Model {
         }
     }
 
+    private int id, courseID;
     private Type type;
     private LocalDate dueDate;
     private String notes;
 
     public Assessment() {}
+
+    public int getId() {
+        return this.id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getCourseID() { return this.courseID; }
+
+    public void setCourseID(int id) { this.courseID = id; }
 
     public Type getType() {
         return type;

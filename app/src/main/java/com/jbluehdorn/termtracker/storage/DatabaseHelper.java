@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.jbluehdorn.termtracker.models.Assessment;
 import com.jbluehdorn.termtracker.models.Course;
 import com.jbluehdorn.termtracker.models.Term;
 import com.jbluehdorn.termtracker.storage.tables.AssessmentsTable;
@@ -44,38 +45,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         TERMS METHODS
      */
     public void addTerm(Term term) {
-        SQLiteDatabase db = getWritableDatabase();
         TermsTable tbl = TermsTable.getInstance();
-
-        tbl.add(term, db);
+        tbl.add(term, getWritableDatabase());
     }
 
     public List<Term> getTerms() {
-        SQLiteDatabase db = getReadableDatabase();
         TermsTable tbl = TermsTable.getInstance();
-
-        return (List<Term>)(List<?>) tbl.get(db);
+        return (List<Term>)(List<?>) tbl.get(getReadableDatabase());
     }
 
     public Term getTerm(int id) {
-        SQLiteDatabase db = getReadableDatabase();
         TermsTable tbl = TermsTable.getInstance();
-
-        return (Term) tbl.get(id, db);
+        return (Term) tbl.get(id, getReadableDatabase());
     }
 
     public Boolean addOrUpdateTerm(Term term) {
-        SQLiteDatabase db = getWritableDatabase();
         TermsTable tbl = TermsTable.getInstance();
-
-        return tbl.addOrUpdate(term, db) == 1;
+        return tbl.addOrUpdate(term, getReadableDatabase()) == 1;
     }
 
     public void deleteTerm(Term term) {
-        SQLiteDatabase db = getWritableDatabase();
         TermsTable tbl = TermsTable.getInstance();
-
-        tbl.delete(term, db);
+        tbl.delete(term, getWritableDatabase());
     }
 
     /*
@@ -83,38 +74,56 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
 
     public void addCourse(Course course) {
-        SQLiteDatabase db = getWritableDatabase();
         CoursesTable tbl = CoursesTable.getInstance();
-
-        tbl.add(course, db);
+        tbl.add(course, getWritableDatabase());
     }
 
     public List<Course> getCourses() {
-        SQLiteDatabase db = getReadableDatabase();
         CoursesTable tbl = CoursesTable.getInstance();
-
-        return (List<Course>)(List<?>) tbl.get(db);
+        return (List<Course>)(List<?>) tbl.get(getReadableDatabase());
     }
 
     public Course getCourse(int id) {
-        SQLiteDatabase db = getReadableDatabase();
         CoursesTable tbl = CoursesTable.getInstance();
-
-        return (Course) tbl.get(id, db);
+        return (Course) tbl.get(id, getReadableDatabase());
     }
 
     public Boolean addOrUpdateCourse(Course course) {
-        SQLiteDatabase db = getWritableDatabase();
         CoursesTable tbl = CoursesTable.getInstance();
-
-        return tbl.addOrUpdate(course, db) == 1;
+        return tbl.addOrUpdate(course,getWritableDatabase()) == 1;
     }
 
     public void deleteCourse(Course course) {
-        SQLiteDatabase db = getWritableDatabase();
         CoursesTable tbl = CoursesTable.getInstance();
+        tbl.delete(course, getWritableDatabase());
+    }
 
-        tbl.delete(course, db);
+    /*
+        ASSSESSMENT METHODS
+     */
+    public void addAssessment(Assessment assessment) {
+        AssessmentsTable tbl = AssessmentsTable.getInstance();
+        tbl.add(assessment, getWritableDatabase());
+    }
+
+    public List<Assessment> getAssessments() {
+        AssessmentsTable tbl = AssessmentsTable.getInstance();
+        return (List<Assessment>)(List<?>) tbl.get(getReadableDatabase());
+    }
+
+    public Assessment getAssessment(int id) {
+        AssessmentsTable tbl = AssessmentsTable.getInstance();
+        return (Assessment) tbl.get(id, getReadableDatabase());
+    }
+
+    public Boolean addOrUpdateAssessment(Assessment assessment) {
+        AssessmentsTable tbl = AssessmentsTable.getInstance();
+        return tbl.addOrUpdate(assessment, getWritableDatabase()) == 1;
+    }
+
+    public void deleteAssessment(Assessment assessment) {
+        AssessmentsTable tbl = AssessmentsTable.getInstance();
+        tbl.delete(assessment, getWritableDatabase());
     }
 
     @Override
