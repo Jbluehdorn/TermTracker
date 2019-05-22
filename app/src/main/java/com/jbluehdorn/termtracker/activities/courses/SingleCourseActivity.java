@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jbluehdorn.termtracker.R;
 import com.jbluehdorn.termtracker.models.Course;
@@ -101,6 +102,9 @@ public class SingleCourseActivity extends AppCompatActivity {
             case R.id.item_assessments:
                 //TODO: Flesh this out
                 return true;
+            case R.id.item_toggle_alerts:
+                toggleAlertsEnabled();
+                return true;
             case R.id.item_delete:
                 delete();
                 finish();
@@ -108,6 +112,13 @@ public class SingleCourseActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void toggleAlertsEnabled() {
+        course.setAlertsEnabled(!course.getAlertsEnabled());
+        save();
+
+        Toast.makeText(this, "Alerts are now " + (course.getAlertsEnabled() ? "enabled" : "disabled") + ".", Toast.LENGTH_SHORT).show();
     }
 
     private void save() {

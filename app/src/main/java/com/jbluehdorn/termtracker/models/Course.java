@@ -7,8 +7,8 @@ public class Course implements Model {
     private int id, term_id;
     private LocalDate start_date, end_date;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-
     private String title, status, notes, mentor_name, mentor_phone, mentor_email;
+    private boolean alertsEnabled = false;
 
     public Course() {}
 
@@ -93,4 +93,8 @@ public class Course implements Model {
     public void setMentorEmail(String mentor_email) {
         this.mentor_email = mentor_email;
     }
+
+    public Boolean getAlertsEnabled() { return alertsEnabled; }
+
+    public void setAlertsEnabled(Boolean enabled) { this.alertsEnabled = enabled; }
 }

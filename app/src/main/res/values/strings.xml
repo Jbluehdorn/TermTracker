@@ -17,8 +17,7 @@
     <string name="update_term">Update Term</string>
     <string name="new_term">New Term</string>
 
-    <string name="enable_alerts">Enable Alerts</string>
-    <string name="disable_alerts">Disable Alerts</string>
+    <string name="toggle_alerts">Toggle Alerts</string>
     <string name="notes">Notes</string>
 
     <string name="date_format">MM/DD/YYYY</string>
