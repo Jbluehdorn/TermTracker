@@ -119,10 +119,7 @@ public class SingleCourseActivity extends AppCompatActivity {
     }
 
     private void toggleAlertsEnabled() {
-        course.setAlertsEnabled(!course.getAlertsEnabled());
-        save();
-
-        Toast.makeText(this, "Alerts are now " + (course.getAlertsEnabled() ? "enabled" : "disabled") + ".", Toast.LENGTH_SHORT).show();
+        //TODO: Build this
     }
 
     private void save() {

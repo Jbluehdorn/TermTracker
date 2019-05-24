@@ -27,7 +27,6 @@ public class CoursesTable extends Table {
     private static final String COL_MENTOR_NAME = "MENTOR_NAME";
     private static final String COL_MENTOR_PHONE = "MENTOR_PHONE";
     private static final String COL_MENTOR_EMAIL = "MENTOR_EMAIL";
-    private static final String COL_ALERTS_ENABLED = "ALERTS_ENABLED";
 
     public static synchronized CoursesTable getInstance() {
         if(sInstance == null) {
@@ -49,7 +48,6 @@ public class CoursesTable extends Table {
         this.columns.add(new Column(COL_MENTOR_NAME, DataType.STRING));
         this.columns.add(new Column(COL_MENTOR_PHONE, DataType.STRING));
         this.columns.add(new Column(COL_MENTOR_EMAIL, DataType.STRING));
-        this.columns.add(new Column(COL_ALERTS_ENABLED, DataType.BOOLEAN));
     }
 
     @Override
@@ -113,7 +111,6 @@ public class CoursesTable extends Table {
             values.put(COL_MENTOR_NAME, course.getMentorName());
             values.put(COL_MENTOR_EMAIL, course.getMentorEmail());
             values.put(COL_MENTOR_PHONE, course.getMentorPhone());
-            values.put(COL_ALERTS_ENABLED, course.getAlertsEnabled());
 
             db.insertOrThrow(this.name, null, values);
             db.setTransactionSuccessful();
@@ -157,7 +154,6 @@ public class CoursesTable extends Table {
            values.put(COL_MENTOR_NAME, course.getMentorName());
            values.put(COL_MENTOR_EMAIL, course.getMentorEmail());
            values.put(COL_MENTOR_PHONE, course.getMentorPhone());
-           values.put(COL_ALERTS_ENABLED, course.getAlertsEnabled());
 
            return db.update(this.name, values, "ID = ?", new String[] {String.valueOf(course.getId())});
     }
@@ -175,7 +171,6 @@ public class CoursesTable extends Table {
         course.setMentorName(cursor.getString(cursor.getColumnIndex(COL_MENTOR_NAME)));
         course.setMentorEmail(cursor.getString(cursor.getColumnIndex(COL_MENTOR_EMAIL)));
         course.setMentorPhone(cursor.getString(cursor.getColumnIndex(COL_MENTOR_PHONE)));
-        course.setAlertsEnabled(cursor.getInt(cursor.getColumnIndex(COL_ALERTS_ENABLED)) > 0);
 
         return course;
     }
