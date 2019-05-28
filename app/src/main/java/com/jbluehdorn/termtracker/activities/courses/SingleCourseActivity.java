@@ -132,9 +132,6 @@ public class SingleCourseActivity extends AppCompatActivity {
         long diffToStart = now.until(this.course.getStartDate().atStartOfDay(), ChronoUnit.MILLIS);
         long diffToEnd = now.until(this.course.getEndDate().atStartOfDay(), ChronoUnit.MILLIS);
 
-        diffToStart = 3000;
-        diffToEnd = 5000;
-
         if(diffToEnd > 0) {
             notificationsClient.scheduleNotification("End of Course", this.course.getTitle() + " ends today.", diffToEnd);
 
