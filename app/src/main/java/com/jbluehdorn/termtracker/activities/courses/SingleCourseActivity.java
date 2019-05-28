@@ -17,11 +17,17 @@ import android.widget.Toast;
 import com.jbluehdorn.termtracker.R;
 import com.jbluehdorn.termtracker.models.Course;
 import com.jbluehdorn.termtracker.storage.DatabaseHelper;
+import com.jbluehdorn.termtracker.util.NotificationsClient;
 import com.jbluehdorn.termtracker.widgets.DateText;
 import com.jbluehdorn.termtracker.widgets.PhoneText;
 
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
 
 public class SingleCourseActivity extends AppCompatActivity {
     public enum Type {
@@ -104,7 +110,7 @@ public class SingleCourseActivity extends AppCompatActivity {
                 //TODO: Flesh this out
                 return true;
             case R.id.item_toggle_alerts:
-                toggleAlertsEnabled();
+                enableAlerts();
                 return true;
             case R.id.item_delete:
                 delete();
@@ -118,8 +124,29 @@ public class SingleCourseActivity extends AppCompatActivity {
         }
     }
 
-    private void toggleAlertsEnabled() {
-        //TODO: Build this
+    private void enableAlerts() {
+        NotificationsClient notificationsClient = NotificationsClient.getInstance(this);
+
+        LocalDateTime now = LocalDateTime.now();
+
+        long diffToStart = now.until(this.course.getStartDate().atStartOfDay(), ChronoUnit.MILLIS);
+        long diffToEnd = now.until(this.course.getEndDate().atStartOfDay(), ChronoUnit.MILLIS);
+
+        diffToStart = 3000;
+        diffToEnd = 5000;
+
+        if(diffToEnd > 0) {
+            notificationsClient.scheduleNotification("End of Course", this.course.getTitle() + " ends today.", diffToEnd);
+
+            if(diffToStart > 0) {
+                notificationsClient.scheduleNotification("Start of Course", this.course.getTitle() + " begins today.", diffToStart);
+            }
+
+            Toast.makeText(this, "Notifications have been enabled.", Toast.LENGTH_LONG).show();
+
+        } else {
+            Toast.makeText(this, "Course is already completed.", Toast.LENGTH_LONG).show();
+        }
     }
 
     private void save() {

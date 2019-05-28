@@ -5,7 +5,7 @@
         android:title="@string/assessments"/>
     <item
         android:id="@+id/item_toggle_alerts"
-        android:title="@string/toggle_alerts"/>
+        android:title="@string/enable_alerts"/>
     <item
         android:id="@+id/item_share"
         android:title="@string/share"/>

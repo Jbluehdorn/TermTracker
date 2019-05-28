@@ -10,9 +10,12 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
 import com.jbluehdorn.termtracker.R;
 import com.jbluehdorn.termtracker.receivers.NotificationReceiver;
+
+import java.util.UUID;
 
 public class NotificationsClient {
     private static NotificationsClient sIntance;
@@ -34,19 +37,22 @@ public class NotificationsClient {
         createNotificationsChannel();
     }
 
-    public void scheduleNotification(String title, String content, int delay) {
+    public void scheduleNotification(String title, String content, long delay) {
         Intent notificationIntent = new Intent(this.context, NotificationReceiver.class);
+        int notificationID = UUID.randomUUID().hashCode();
 
         Notification notification = this.getNotification(title, content);
 
-        notificationIntent.putExtra(NotificationReceiver.NOTIFICATION_ID, 1);
+        notificationIntent.putExtra(NotificationReceiver.NOTIFICATION_ID, notificationID);
         notificationIntent.putExtra(NotificationReceiver.NOTIFICATION, notification);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this.context, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        Log.d("ID", Integer.toString(notificationID));
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this.context, notificationID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         long futureInMillis = SystemClock.elapsedRealtime() + delay;
         AlarmManager alarmManager = (AlarmManager) this.context.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
+        alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
     }
 
     private Notification getNotification(String title, String content) {
