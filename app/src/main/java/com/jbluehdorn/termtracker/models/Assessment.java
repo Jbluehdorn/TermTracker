@@ -1,6 +1,7 @@
 package com.jbluehdorn.termtracker.models;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Assessment implements Model {
     public enum Type {
@@ -24,6 +25,7 @@ public class Assessment implements Model {
     private Type type;
     private LocalDate dueDate;
     private String notes;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
     public Assessment() {}
 
@@ -50,6 +52,7 @@ public class Assessment implements Model {
     public LocalDate getDueDate() {
         return dueDate;
     }
+    public String getDueDateString() { return this.formatter.format(this.getDueDate()); }
 
     public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
@@ -61,5 +64,14 @@ public class Assessment implements Model {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.getType());
+        sb.append(" Assessment on ");
+        sb.append(this.getDueDateString());
+        return sb.toString();
     }
 }

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jbluehdorn.termtracker.R;
+import com.jbluehdorn.termtracker.activities.assessments.AllAssessmentsActivity;
 import com.jbluehdorn.termtracker.models.Course;
 import com.jbluehdorn.termtracker.storage.DatabaseHelper;
 import com.jbluehdorn.termtracker.util.NotificationsClient;
@@ -107,7 +108,7 @@ public class SingleCourseActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.item_assessments:
-                //TODO: Flesh this out
+                openAllAssessments();
                 return true;
             case R.id.item_toggle_alerts:
                 enableAlerts();
@@ -122,6 +123,12 @@ public class SingleCourseActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void openAllAssessments() {
+        Intent intent = new Intent(this, AllAssessmentsActivity.class);
+        intent.putExtra("COURSE_ID", this.course.getId());
+        startActivity(intent);
     }
 
     private void enableAlerts() {
