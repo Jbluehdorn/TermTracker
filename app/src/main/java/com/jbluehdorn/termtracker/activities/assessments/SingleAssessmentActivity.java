@@ -6,6 +6,7 @@ import android.support.v7.widget.AppCompatSpinner;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -102,7 +103,10 @@ public class SingleAssessmentActivity extends AppCompatActivity {
     }
 
     private void populateForm() {
-        //TODO: Build
+        dateDue.setText(assessment.getDueDateString());
+        txtNotes.setText(assessment.getNotes());
+
+        spinType.setSelection(((ArrayAdapter) spinType.getAdapter()).getPosition(assessment.getType().toString()));
     }
 
     private void save() {

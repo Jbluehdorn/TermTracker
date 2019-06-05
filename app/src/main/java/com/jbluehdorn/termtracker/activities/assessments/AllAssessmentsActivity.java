@@ -108,6 +108,10 @@ public class AllAssessmentsActivity extends AppCompatActivity {
     }
 
     private void handleBtnEditCourse(View v, int id) {
-        //TODO: Build
+        Intent intent = new Intent(this, SingleAssessmentActivity.class);
+        intent.putExtra("TYPE", SingleAssessmentActivity.Type.EDIT);
+        intent.putExtra("COURSE_ID", this.course.getId());
+        intent.putExtra("ASSESSMENT_ID", id);
+        startActivity(intent);
     }
 }
