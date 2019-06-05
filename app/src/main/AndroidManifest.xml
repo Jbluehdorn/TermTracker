@@ -22,6 +22,7 @@
         <activity android:name=".activities.courses.AllCoursesActivity" />
         <activity android:name=".activities.courses.SingleCourseActivity"/>
         <activity android:name=".activities.assessments.AllAssessmentsActivity"/>
+        <activity android:name=".activities.assessments.SingleAssessmentActivity"/>
 
         <receiver android:name=".receivers.NotificationReceiver" />
     </application>

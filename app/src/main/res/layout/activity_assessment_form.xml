@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent" xmlns:card_view="http://schemas.android.com/apk/res-auto">
     <!-- Dummy item to prevent AutoCompleteTextView from receiving focus -->
     <LinearLayout
         android:focusable="true"
@@ -12,11 +11,12 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingBottom="5dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
+            android:paddingHorizontal="5dp"
             android:orientation="vertical">
 
             <TextView
@@ -24,53 +24,45 @@
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="15dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                android:text="@string/txt_title"/>
-            <EditText
-                android:id="@+id/txt_title"
+                android:text="Type"/>
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/spin_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:hint="ex. Fall 2018"
-                android:inputType="text" />
+                android:entries="@array/assessment_types">
+            </android.support.v7.widget.AppCompatSpinner>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                android:text="@string/txt_start"/>
+                android:text="Due Date"/>
             <com.jbluehdorn.termtracker.widgets.DateText
-                android:id="@+id/date_start"
+                android:id="@+id/date_due"
                 android:hint="@string/date_format"
                 android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                android:text="@string/txt_end"/>
-            <com.jbluehdorn.termtracker.widgets.DateText
-                android:id="@+id/date_end"
+                android:text="@string/notes"/>
+            <EditText
+                android:id="@+id/txt_notes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:hint="@string/date_format"/>
-
-            <Switch
-                android:id="@+id/chk_active"
-                android:textSize="20sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:text="@string/curr_term" />
+                android:inputType="textMultiLine" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -99,4 +91,5 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
+
 </android.support.constraint.ConstraintLayout>

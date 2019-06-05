@@ -1,5 +1,6 @@
 package com.jbluehdorn.termtracker.activities.assessments;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -100,7 +101,10 @@ public class AllAssessmentsActivity extends AppCompatActivity {
     }
 
     private void handleBtnNewAssessment(View v) {
-        //TODO: Build
+        Intent intent = new Intent(this, SingleAssessmentActivity.class);
+        intent.putExtra("TYPE", SingleAssessmentActivity.Type.NEW);
+        intent.putExtra("COURSE_ID", this.course.getId());
+        startActivity(intent);
     }
 
     private void handleBtnEditCourse(View v, int id) {

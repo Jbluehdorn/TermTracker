@@ -35,4 +35,9 @@
         <item>Completed</item>
         <item>Dropped</item>
     </string-array>
+
+    <string-array name="assessment_types">
+        <item>Objective</item>
+        <item>Performance</item>
+    </string-array>
 </resources>
