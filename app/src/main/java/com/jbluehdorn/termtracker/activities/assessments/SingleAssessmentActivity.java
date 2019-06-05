@@ -140,7 +140,6 @@ public class SingleAssessmentActivity extends AppCompatActivity {
         LocalDateTime now = LocalDateTime.now();
 
         long diffToDue = now.until(assessment.getDueDate().atStartOfDay(), ChronoUnit.MILLIS);
-        diffToDue = 3000;
 
         if(diffToDue > 0) {
             notificationsClient.scheduleNotification("Assessment Due", course.getTitle() + " has a(n) " + assessment.getType().toString() + " Assessment due today.", diffToDue);
