@@ -10,15 +10,19 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jbluehdorn.termtracker.R;
 import com.jbluehdorn.termtracker.models.Assessment;
 import com.jbluehdorn.termtracker.models.Course;
 import com.jbluehdorn.termtracker.storage.DatabaseHelper;
+import com.jbluehdorn.termtracker.util.NotificationsClient;
 import com.jbluehdorn.termtracker.widgets.DateText;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 public class SingleAssessmentActivity extends AppCompatActivity {
     public enum Type {
@@ -128,7 +132,23 @@ public class SingleAssessmentActivity extends AppCompatActivity {
     }
 
     private void enableAlerts() {
-        //TODO: Build
+        NotificationsClient notificationsClient = NotificationsClient.getInstance(this);
+        DatabaseHelper db = DatabaseHelper.getInstance(this);
+
+        Course course = db.getCourse(courseId);
+
+        LocalDateTime now = LocalDateTime.now();
+
+        long diffToDue = now.until(assessment.getDueDate().atStartOfDay(), ChronoUnit.MILLIS);
+        diffToDue = 3000;
+
+        if(diffToDue > 0) {
+            notificationsClient.scheduleNotification("Assessment Due", course.getTitle() + " has a(n) " + assessment.getType().toString() + " Assessment due today.", diffToDue);
+
+            Toast.makeText(this, "Notifications enabled", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, "Due Date is already past", Toast.LENGTH_LONG).show();
+        }
     }
 
     private void delete() {

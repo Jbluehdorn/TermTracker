@@ -66,7 +66,7 @@ public class NotificationsClient {
 
     private void createNotificationsChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, importance);
             channel.setDescription(CHANNEL_DESCRIPTION);
             // Register the channel with the system; you can't change the importance
