@@ -1,5 +1,6 @@
 package com.jbluehdorn.termtracker.activities.assessments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.jbluehdorn.termtracker.R;
 import com.jbluehdorn.termtracker.models.Assessment;
+import com.jbluehdorn.termtracker.models.Course;
 import com.jbluehdorn.termtracker.storage.DatabaseHelper;
 import com.jbluehdorn.termtracker.widgets.DateText;
 
@@ -130,10 +132,21 @@ public class SingleAssessmentActivity extends AppCompatActivity {
     }
 
     private void delete() {
-        //TODO: Build
+        DatabaseHelper db = DatabaseHelper.getInstance(this);
+
+        db.deleteAssessment(assessment);
     }
 
     private void share() {
-        //TODO: Build
+        DatabaseHelper db = DatabaseHelper.getInstance(this);
+        Course course = db.getCourse(courseId);
+
+        String info = course.getTitle() + " has a(n) " + assessment.getType().toString() + " Assessment on " + assessment.getDueDateString();
+
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, info);
+        sendIntent.setType("text/plain");
+        startActivity(sendIntent);
     }
 }
