@@ -143,13 +143,14 @@ public class SingleAssessmentActivity extends AppCompatActivity {
         Course course = db.getCourse(courseId);
 
         LocalDateTime now = LocalDateTime.now();
+        long millisInDay = 86400000;
 
         long diffToDue = now.until(assessment.getDueDate().atStartOfDay(), ChronoUnit.MILLIS);
 
-        if(diffToDue > 0) {
+        if(diffToDue > -millisInDay) {
             notificationsClient.scheduleNotification("Assessment Due", course.getTitle() + " has a(n) " + assessment.getType().toString() + " Assessment due today.", diffToDue);
 
-            Toast.makeText(this, "Notifications enabled", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Notifications enabled for the due date on " + assessment.getDueDateString(), Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(this, "Due Date is already past", Toast.LENGTH_LONG).show();
         }

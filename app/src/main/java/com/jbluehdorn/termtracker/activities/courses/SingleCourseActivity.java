@@ -135,18 +135,19 @@ public class SingleCourseActivity extends AppCompatActivity {
         NotificationsClient notificationsClient = NotificationsClient.getInstance(this);
 
         LocalDateTime now = LocalDateTime.now();
+        long millisInDay = 86400000;
 
         long diffToStart = now.until(this.course.getStartDate().atStartOfDay(), ChronoUnit.MILLIS);
         long diffToEnd = now.until(this.course.getEndDate().atStartOfDay(), ChronoUnit.MILLIS);
 
-        if(diffToEnd > 0) {
+        if(diffToEnd > -millisInDay) {
             notificationsClient.scheduleNotification("End of Course", this.course.getTitle() + " ends today.", diffToEnd);
 
-            if(diffToStart > 0) {
+            if(diffToStart > -millisInDay) {
                 notificationsClient.scheduleNotification("Start of Course", this.course.getTitle() + " begins today.", diffToStart);
             }
 
-            Toast.makeText(this, "Notifications have been enabled.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Notifications have been enabled for the start and end of the course.", Toast.LENGTH_LONG).show();
 
         } else {
             Toast.makeText(this, "Course is already completed.", Toast.LENGTH_LONG).show();
