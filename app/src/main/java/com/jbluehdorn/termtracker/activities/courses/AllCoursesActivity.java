@@ -88,7 +88,7 @@ public class AllCoursesActivity extends AppCompatActivity {
 
         for(final Course course : this.courses) {
             Button btn = new Button(this);
-            btn.setText(course.getTitle());
+            btn.setText(course.getTitle() + "\n Due: " + course.getEndDateString());
             btn.setBackgroundResource(R.color.colorPrimaryDark);
             btn.setTextColor(Color.WHITE);
             btn.setLayoutParams(params);
