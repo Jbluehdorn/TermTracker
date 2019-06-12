@@ -54,7 +54,7 @@ public class AllTermsActivity extends AppCompatActivity {
         for(int i = 0, len = terms.size(); i < len; i++) {
             final Term term = terms.get(i);
             Button btn = new Button(this);
-            btn.setText(term.getTitle());
+            btn.setText(term.getTitle() + "\n" + term.getStartDateString() + " - " + term.getEndDateString());
             btn.setBackgroundResource(R.color.colorPrimaryDark);
             btn.setTextColor(Color.WHITE);
             btn.setLayoutParams(layoutParams);
