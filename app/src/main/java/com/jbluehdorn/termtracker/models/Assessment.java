@@ -21,6 +21,7 @@ public class Assessment implements Model {
         }
     }
 
+    private String title;
     private int id, courseID;
     private Type type;
     private LocalDate dueDate;
@@ -36,6 +37,10 @@ public class Assessment implements Model {
     public void setId(int id) {
         this.id = id;
     }
+
+    public String getTitle() { return this.title; }
+
+    public void setTitle(String title) { this.title = title; }
 
     public int getCourseID() { return this.courseID; }
 

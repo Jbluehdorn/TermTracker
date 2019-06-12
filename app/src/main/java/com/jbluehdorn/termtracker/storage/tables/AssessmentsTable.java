@@ -22,7 +22,8 @@ public class AssessmentsTable extends Table {
     private static final String COL_COURSE_ID = "COURSE_ID";
     private static final String COL_TYPE = "TYPE";
     private static final String COL_DUE_DATE = "DUE_DATE";
-    private static final String COL_NOTES = "COL_NOTES";
+    private static final String COL_NOTES = "NOTES";
+    private static final String COL_TITLE = "TITLE";
 
     public static synchronized AssessmentsTable getInstance() {
         if(sInstance == null) {
@@ -39,6 +40,7 @@ public class AssessmentsTable extends Table {
         this.columns.add(new Column(COL_TYPE, DataType.STRING));
         this.columns.add(new Column(COL_DUE_DATE, DataType.DATE));
         this.columns.add(new Column(COL_NOTES, DataType.STRING));
+        this.columns.add(new Column(COL_TITLE, DataType.STRING));
     }
 
     @Override
@@ -97,6 +99,7 @@ public class AssessmentsTable extends Table {
             values.put(COL_DUE_DATE, assessment.getDueDate().toString());
             values.put(COL_NOTES, assessment.getNotes());
             values.put(COL_TYPE, assessment.getType().toString());
+            values.put(COL_TITLE, assessment.getTitle());
 
             db.insertOrThrow(this.name, null, values);
             db.setTransactionSuccessful();
@@ -135,6 +138,7 @@ public class AssessmentsTable extends Table {
         values.put(COL_DUE_DATE, assessment.getDueDate().toString());
         values.put(COL_NOTES, assessment.getNotes());
         values.put(COL_TYPE, assessment.getType().toString());
+        values.put(COL_TITLE, assessment.getTitle());
 
         return db.update(this.name, values, "ID = ?", new String[] { String.valueOf(assessment.getId())});
 
@@ -147,6 +151,7 @@ public class AssessmentsTable extends Table {
         assessment.setCourseID(cursor.getInt(cursor.getColumnIndex(COL_COURSE_ID)));
         assessment.setDueDate(LocalDate.parse(cursor.getString((cursor.getColumnIndex(COL_DUE_DATE)))));
         assessment.setNotes(cursor.getString(cursor.getColumnIndex(COL_NOTES)));
+        assessment.setTitle(cursor.getString(cursor.getColumnIndex(COL_TITLE)));
 
         String type = cursor.getString(cursor.getColumnIndex(COL_TYPE));
         Assessment.Type assessment_type = null;

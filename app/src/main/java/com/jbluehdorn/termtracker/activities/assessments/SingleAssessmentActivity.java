@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,7 +32,8 @@ public class SingleAssessmentActivity extends AppCompatActivity {
     }
 
     private Button btnCancel, btnSave;
-    private TextView txtHeader, txtNotes;
+    private TextView txtHeader;
+    private EditText txtNotes, txtTitle;
     private DateText dateDue;
     private AppCompatSpinner spinType;
     private Assessment assessment;
@@ -50,6 +52,7 @@ public class SingleAssessmentActivity extends AppCompatActivity {
         txtHeader.setText("New Assessment");
 
         txtNotes        = findViewById(R.id.txt_notes);
+        txtTitle        = findViewById(R.id.txt_title);
         dateDue         = findViewById(R.id.date_due);
         spinType        = findViewById(R.id.spin_type);
 
@@ -111,6 +114,7 @@ public class SingleAssessmentActivity extends AppCompatActivity {
     private void populateForm() {
         dateDue.setText(assessment.getDueDateString());
         txtNotes.setText(assessment.getNotes());
+        txtTitle.setText(assessment.getTitle());
 
         spinType.setSelection(((ArrayAdapter) spinType.getAdapter()).getPosition(assessment.getType().toString()));
     }
@@ -127,6 +131,7 @@ public class SingleAssessmentActivity extends AppCompatActivity {
         assessment.setDueDate(LocalDate.parse(dateDue.getText().toString(), formatter));
         assessment.setType(spinType.getSelectedItem().toString().toLowerCase().equals("performance") ? Assessment.Type.PERFORMANCE : Assessment.Type.OBJECTIVE);
         assessment.setNotes(txtNotes.getText().toString());
+        assessment.setTitle(txtTitle.getText().toString());
 
         db.addOrUpdateAssessment(assessment);
     }
