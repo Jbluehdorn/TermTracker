@@ -10,15 +10,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jbluehdorn.termtracker.R;
 import com.jbluehdorn.termtracker.activities.courses.AllCoursesActivity;
+import com.jbluehdorn.termtracker.models.Course;
 import com.jbluehdorn.termtracker.models.Term;
 import com.jbluehdorn.termtracker.storage.DatabaseHelper;
 import com.jbluehdorn.termtracker.widgets.DateText;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class SingleTermActivity extends AppCompatActivity {
     public enum Type {
@@ -94,8 +97,12 @@ public class SingleTermActivity extends AppCompatActivity {
                 openCourses();
                 return true;
             case R.id.item_delete:
-                delete();
-                finish();
+                if(!validateTermHasCourses()) {
+                    delete();
+                    finish();
+                } else {
+                    Toast.makeText(this, "Terms with courses cannot be deleted", Toast.LENGTH_LONG).show();
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -128,6 +135,21 @@ public class SingleTermActivity extends AppCompatActivity {
         DatabaseHelper db = DatabaseHelper.getInstance(this);
 
         db.deleteTerm(this.term);
+    }
+
+    private boolean validateTermHasCourses() {
+        Boolean hasCourse = false;
+        DatabaseHelper db = DatabaseHelper.getInstance(this);
+
+        List<Course> allCourses = db.getCourses();
+
+        for(Course course : allCourses) {
+            if(course.getTermId() == term.getId()) {
+                hasCourse = true;
+            }
+        }
+
+        return hasCourse;
     }
 
     private void populateForm() {
